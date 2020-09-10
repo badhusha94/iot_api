@@ -16,15 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from rest_framework import routers
-from core import views
-
-router = routers.DefaultRouter()
-router.register('sensorreadings',views.SensorReadingViewSet,basename='sensor_readings')
-router.register('sensortypes',views.SensorTypeViewSet,basename='sensor_types')
-router.register('powerplants',views.PowerPlantViewSet,basename='power_plants')
+from core import views,urls as core_urls
 
 urlpatterns = [
-    path('',include(router.urls)),
-    path('api-auth/',include('rest_framework.urls',namespace='rest_framework')),
+    path('',include(core_urls)),
     path('admin/', admin.site.urls),
 ]

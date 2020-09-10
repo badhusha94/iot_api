@@ -81,8 +81,8 @@ DATABASES = {
         'HOST':'localhost',
         'PORT': 3306,
         'NAME': 'iot_poc',
-        'USER': 'badhusha',
-        'PASSWORD': 'ryan'
+        'USER': '',
+        'PASSWORD': ''
     }
 }
 
