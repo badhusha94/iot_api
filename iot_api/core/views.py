@@ -2,6 +2,7 @@ from rest_framework import viewsets,views,response,status
 from .models import SensorReading,SensorType,PowerPlant
 from .serializers import SensorReadingSerializer, SensorTypeSerializer, PowerPlantSerializer
 from datetime import datetime
+from django.conf import settings
 
 class SensorReadingList(views.APIView):
     queryset = SensorReading.objects
@@ -19,13 +20,23 @@ class SensorReadingList(views.APIView):
             to_datetime = datetime.strptime(to_datetime_str,'%y%m%d%H%M%S')
 
         if from_datetime and to_datetime:
-            queryset = queryset.filter(reading_datetime__gte=from_datetime,reading_datetime__lte=to_datetime)
+            queryset = queryset.filter(
+                reading_datetime__gte=from_datetime,
+                reading_datetime__lte=to_datetime,
+                reading_parameter='Temperature'
+                )[:settings.CHART_RECORD_LIMIT][::-1]
         elif from_datetime and not to_datetime:
-            queryset = queryset.filter(reading_datetime__gte=from_datetime)
+            queryset = queryset.filter(
+                reading_datetime__gte=from_datetime,
+                reading_parameter='Temperature'
+                )[:settings.CHART_RECORD_LIMIT][::-1]
         elif not from_datetime and to_datetime:
-            queryset = queryset.filter(reading_datetime__lte=to_datetime)
+            queryset = queryset.filter(
+                reading_datetime__lte=to_datetime,
+                reading_parameter='Temperature'
+                )[:settings.CHART_RECORD_LIMIT][::-1]
         else:
-            queryset = queryset.all()
+            queryset = queryset.filter(reading_parameter='Temperature')[:settings.CHART_RECORD_LIMIT][::-1]
         serializer = SensorReadingSerializer(queryset,many=True)
         return response.Response(serializer.data)
     

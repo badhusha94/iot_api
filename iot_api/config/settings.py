@@ -39,11 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -117,7 +119,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -131,6 +133,9 @@ REST_FRAMEWORK = {
     ]
 }
 
+CORS_ORIGIN_ALLOW_ALL = True
+
 DEFAULT_POWER_PLANT_NAME = 'Power Plant'
 DEFAULT_POWER_PLANT_LOCATION = 'Bengaluru'
 DEFAULT_MEASUREMENT_UNIT = '°C'
+CHART_RECORD_LIMIT = 20

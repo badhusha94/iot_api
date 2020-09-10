@@ -14,4 +14,4 @@ class PowerPlantSerializer(serializers.ModelSerializer):
 class SensorReadingSerializer(serializers.ModelSerializer):
     class Meta:
         model = SensorReading
-        fields = ['id','power_plant','sensor_type','reading_parameter','reading_value','reading_datetime']
+        fields = ['id','reading_parameter','reading_value','reading_datetime']
